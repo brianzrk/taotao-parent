@@ -1,0 +1,49 @@
+server:
+  port: 8084
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/taotao?useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: utf-8
+    cache: false
+    mode: HTML
+#    mode: LEGACYHTML5
+    servlet:
+      content-type: text/html
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.31.74:9300
+      repositories:
+        enabled: true   #打开sql的JPA规范
+  rabbitmq:
+    username: root
+    password: admin
+    host: 192.168.31.74  #只有host是localhost时才可以用guest登录，否则需要在管理界面新建角色并分配权限
+    port: 5672
+
+#application:
+#  name: taotao-search-provider
+dubbo:
+  application:
+    name: taotao-search-provider   #别名，消费方应用信息，不要与提供方相同
+  registry:
+    address: zookeeper://192.168.31.74:2181 #注册中心地址，调用服务
+  protocol:
+    name: dubbo
+    port: 20884
+  scan:
+    base-packages: com.taotao.search.impl
+
+#http.cors.enabled: true
+#http.cors.allow-origin: "*"
+
+TAOTAO_IMAGE_SERVER_URL: http://192.168.31.74/

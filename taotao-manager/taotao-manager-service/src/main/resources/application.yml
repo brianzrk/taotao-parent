@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/taotao?useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+#发布应用程序配置
+#application:
+#  name: taotao-dubbo-provider
+dubbo:
+  application:
+    name: taotao-dubbo-provider   #别名，提供方应用信息，用于计算依赖关系
+  registry:
+    address: zookeeper://192.168.31.74:2181 #使用zookeeper注册中心暴露服务地址
+  protocol:
+    name: dubbo
+    port: 20880         #配置暴露服务端口
+  scan:
+    base-packages: com.taotao.service.impl
